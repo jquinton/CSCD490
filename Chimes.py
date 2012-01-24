@@ -1,6 +1,7 @@
 import pygame
 import random
 import Tkinter as tk
+import os
  
 # Initialize the game engine
 pygame.init()
@@ -24,8 +25,38 @@ line_list_start=[]
 line_list_stop=[]
 flag_list_stop=[]
 
+# Create empty array for sound files
+sound_list=[]
 
+# fill sound array with sound files
+i = 0
+while i < 25 :
+    temp_sound_file = os.getcwd()
+    temp_sound_file += "/soundfiles/"
+    temp_sound_file += chr(i + 65)
+    temp_sound_file += ".mid"
+    sound_list.append(temp_sound_file)
+    i += 1
  
+# Initialize mixer
+# the mixer is used by pygame to load and play the sound files
+freq = 44100 
+bitsize = -16
+channels = 2 
+buffer = 1024 
+pygame.mixer.init(freq, bitsize, channels, buffer)
+pygame.mixer.music.set_volume(1.0)
+ 
+#play_sound
+def play_sound(sound_path):
+    try:
+        pygame.mixer.music.load(sound_path)
+        print "loaded %s" % sound_path
+    except:
+        print "%s failed to load" % sound_path
+        return
+    pygame.mixer.music.play()
+
 # Loop n times and add a note shape in each position. Also generate random color for each note.
 for i in range(100, 750, 50): #(start, stop, increment)
     x=i
@@ -99,6 +130,8 @@ while done==False:
                  
                 # The shape has reached its destination. animate the letter
                 else:
+                    #since the shape has reached its destination, this is when we want to call play_sound to play the midi file
+                    play_sound(sound_list[tempAsciiVal - 65])
                     # draw the letter increasing size 
                     for j in range(24, 32, 1):#(start, stop, increment)
                         if pygame.font:
