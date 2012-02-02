@@ -2,7 +2,7 @@ import pygame
 import random
 import Tkinter as tk
 import os
- 
+            
 # Initialize the game engine
 pygame.init()
 
@@ -18,7 +18,10 @@ NOTE_STARTING_Y = 500
 size=[HEIGHT,WIDTH]
 screen=pygame.display.set_mode(size)
 pygame.display.set_caption("Listen2ABC")
- 
+
+screen.wordEntry= Entry (screen)        
+screen.wordEntry.grid() 
+
 # Create empty arrays for shape parts
 circle_list=[]
 line_list_start=[]
@@ -27,6 +30,8 @@ flag_list_stop=[]
 
 # Create empty array for sound files
 sound_list=[]
+
+
 
 # fill sound array with sound files
 i = 0
@@ -46,7 +51,7 @@ channels = 2
 buffer = 1024 
 pygame.mixer.init(freq, bitsize, channels, buffer)
 pygame.mixer.music.set_volume(1.0)
- 
+
 #play_sound
 def play_sound(sound_path):
     try:
@@ -75,7 +80,7 @@ clock = pygame.time.Clock()
 #temporarly have processingNeeded set here. This should be set true when the user clicks on listen
 processingNeeded = True
 
- 
+        
 #Loop until the user clicks the close button.
 done=False
 while done==False:
@@ -173,5 +178,5 @@ while done==False:
         
         # done animating. no need to continue looping        
         processingNeeded = False
-        
-pygame.quit ()
+
+        pygame.quit ()
