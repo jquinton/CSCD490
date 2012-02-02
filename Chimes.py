@@ -19,8 +19,8 @@ size=[HEIGHT,WIDTH]
 screen=pygame.display.set_mode(size)
 pygame.display.set_caption("Listen2ABC")
 
-screen.wordEntry= Entry (screen)        
-screen.wordEntry.grid() 
+#screen.wordEntry= Entry (screen)        
+#screen.wordEntry.grid() 
 
 # Create empty arrays for shape parts
 circle_list=[]
