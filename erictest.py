@@ -39,12 +39,41 @@ def addTile(screen,  bottomTiles,  image,  letters):
     #update the display
     pygame.display.update()
 
+#play_sound
+def play_sound(sound_path):
+    try:
+        pygame.mixer.music.load(sound_path)
+        print "loaded %s" % sound_path
+    except:
+        print "%s failed to load" % sound_path
+        return
+    pygame.mixer.music.play()
 
 #first to run when program starts
 def main():
     pygame.init()
     screen = pygame.display.set_mode((1200, 600))
     
+    # fill sound array with sound files
+    sound_list=[]
+    i = 0
+    while i < 26 :
+        temp_sound_file = os.getcwd()
+        temp_sound_file += "/soundfiles/"
+        temp_sound_file += chr(i + 65)
+        temp_sound_file += ".mid"
+        sound_list.append(temp_sound_file)
+        i += 1
+    
+    # Initialize mixer
+    # the mixer is used by pygame to load and play the sound files
+    freq = 44100 
+    bitsize = -16
+    channels = 2 
+    buffer = 1024 
+    pygame.mixer.init(freq, bitsize, channels, buffer)
+    pygame.mixer.music.set_volume(1.0)
+        
     #used so animation displays at a reasonable speed
     clock = pygame.time.Clock()
 
@@ -208,11 +237,11 @@ def main():
         #create notes and set their position and speed to raise at
         notes = []
         for x in range(len(letters)):
-            note = ImageObject(player, x*50+10, 500,  10,  letters[x])
+            note = ImageObject(player, x*50+10, 500,  3,  letters[x])
             notes.append(note)
         
         height = 50
-        
+        note_number = 0
         #used to store the notes when the reach there final destination
         finals = []
         
@@ -220,21 +249,21 @@ def main():
         for note in notes:
             
             #sets the destination and the delay for assending notes assend
+
             accentDelay = 10
             if ord(note.letter) >= 97 and ord(note.letter) <= 122:
-                height = 500 - ((ord(note.letter) - 97) * 20)
-                accentDelay = (((ord(note.letter) - 97) * 20) + 20) / 10
+                height = 430 - ((ord(note.letter) - 97) * 15)
+                accentDelay = 30 + ((ord(note.letter) - 97) * 5)
             if ord(note.letter) >= 48 and ord(note.letter) <= 57:
                 height = 500 - ((ord(note.letter) - 47 + (122 - 97)) * 20)
                 accentDelay = (((ord(note.letter) - 47 + (122 - 97)) * 20) + 20) / 10
-                
+            
             #this loops tell the note gets to its destination
             while note.pos.top >= height and done == False:
                 #check to see if user wants to exit
                 for event in pygame.event.get(): 
                     if event.type == pygame.QUIT: 
                         done = True 
-                
                 #move the note up
                 note.move()
                 #clear the whole screen
@@ -256,6 +285,8 @@ def main():
             
             #add to final notes so they can be redrawn
             finals.append(note)
+            play_sound(sound_list[ord(note.letter) - 97])
+            note_number += 1
 
     pygame.quit ()
 
