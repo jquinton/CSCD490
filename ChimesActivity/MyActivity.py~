@@ -11,7 +11,7 @@ sys.path.append('..') # Import sugargame package from top directory.
 import sugargame.canvas
 import wordchimes
    
-class TestActivity(sugar.activity.activity.Activity):
+class TestActivity(activity.Activity):
        def __init__(self, handle):
            super(TestActivity, self).__init__(handle)
    

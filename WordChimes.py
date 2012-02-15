@@ -3,8 +3,8 @@
 import os, pygame
 from pygame.locals import *
 
-SCREENWIDTH = 1200
-SCREENHEIGHT = 800
+SCREENWIDTH = 1000
+SCREENHEIGHT = 700
 FPS = 60
 ANIM_FRAME_TIME = 60
 ANIM_SPEED_INCREASE = .4
