@@ -22,7 +22,7 @@ class TestActivity(sugar.activity.activity.Activity):
         self.game = TestGame.TestGame()
 
         # Build the activity toolbar.
-        self.build_toolbar()
+        #self.build_toolbar()
 
         # Build the Pygame canvas.
         self._pygamecanvas = sugargame.canvas.PygameCanvas(self)
@@ -64,5 +64,7 @@ class TestActivity(sugar.activity.activity.Activity):
     def read_file(self, file_path):
         self.game.read_file(file_path)
         
+        
     def write_file(self, file_path):
         self.game.write_file(file_path)
+        

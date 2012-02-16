@@ -1,8 +1,14 @@
-import os, pygame
+#! /usr/bin/env python
+
+import pygame
 from pygame.locals import *
+import gtk
 
 SCREENWIDTH = 1200
 SCREENHEIGHT = 700
+FPS = 60
+ANIM_FRAME_TIME = 60
+ANIM_SPEED_INCREASE = .4
 
 #the note object that will assend the screen
 class ImageObject():
@@ -10,20 +16,24 @@ class ImageObject():
         self.letter = letter
         self.speed = speed
         self.image = image
+        self.subpixel = 0
         self.pos = image.get_rect().move(Xcord, Ycord)
     def move(self):
         self.pos = self.pos.move(0, -self.speed)
+        self.subpixel += (self.speed * 10) % 10
+        if self.subpixel > 9:
+            self.pos = self.pos.move(0, -1)
+            self.subpixel = self.subpixel % 10
 
-class WordChimes():
+class WordChimes:
+    def __init__(self):
+        self.clock = pygame.time.Clock()
+        self.background = load_image('mountainBG.png')
+    
     def run(self):
-	def write_file(self, file_path):
-	    pass
-
-	def read_file(self, file_path):
-	    pass
       
         # fill sound array with sound files
-        sound_list=[]
+        sound_list = []
         i = 0
         while i < 26 :
             temp_sound_file = os.getcwd()
@@ -43,14 +53,12 @@ class WordChimes():
         pygame.mixer.music.set_volume(1.0)
             
         #used so animation displays at a reasonable speed
-        clock = pygame.time.Clock()
 
         #draw the background = load_im
         
         #setup screen
         screen = pygame.display.get_surface()
-        background = load_image('mountainBG.png')
-        screen.blit(background, (0, 0))
+        screen.blit(self.background, (0, 0))
         #update the display
         pygame.display.update()
 
@@ -70,6 +78,9 @@ class WordChimes():
             waiting = True
             while waiting == True and done == False:
                 #check for input
+                while gtk.events_pending():
+                    gtk.main_iteration()
+
                 for event in pygame.event.get():
                     #check to see if user wants to exit
                     if event.type == pygame.QUIT: 
@@ -78,7 +89,7 @@ class WordChimes():
                     if event.type == KEYDOWN:
                         if len(letters) == 0:
                             #clear the whole screen
-                            screen.blit(background, (0, 0))
+                            screen.blit(self.background, (0, 0))
                     
                         if len(letters) < 29:
                         
@@ -170,8 +181,8 @@ class WordChimes():
                         if event.key == K_BACKSPACE:
                             if len(letters) > 0:
                                 letters = letters[:-1]
-				bottomTiles.pop()
-                                redrawTiles(screen,  background,  bottomTiles)
+                                bottomTiles.pop()
+                                redrawTiles(screen,  self.background,  bottomTiles)
                         
                         #see if done entering text
                         if (event.key == K_RETURN):
@@ -191,26 +202,15 @@ class WordChimes():
                 note = ImageObject(noteImage, x*40+10, SCREENHEIGHT - 20,  3,  letters[x])
                 notes.append(note)
             
-            height = 50
             note_number = 0
             #used to store the notes when the reach there final destination
             finals = []
             
             #this is the loop that move the notes up the screen
             for note in notes:
-                
-                #sets the destination and the delay for assending notes assend
-
-                accentDelay = 10
-                if ord(note.letter) >= 97 and ord(note.letter) <= 122:
-                    height = (SCREENHEIGHT-90) - ((ord(note.letter) - 97) * 15)
-                    accentDelay = 30 + ((ord(note.letter) - 97) * 5)
-                elif ord(note.letter) == 32:
-                    height = (SCREENHEIGHT-90) - (ord(note.letter)  * 15)
-                    accentDelay = 30 + (ord(note.letter) * 5)
-                
+                note.speed = 1 + (ord(note.letter)-97) * ANIM_SPEED_INCREASE
                 #this loops tell the note gets to its destination
-                while note.pos.top >= height and done == False:
+                for k in range(ANIM_FRAME_TIME):
                     #check to see if user wants to exit
                     for event in pygame.event.get(): 
                         if event.type == pygame.QUIT: 
@@ -218,7 +218,7 @@ class WordChimes():
                     #move the note up
                     note.move()
                     #clear the whole screen
-                    screen.blit(background, (0, 0))
+                    screen.blit(self.background, (0, 0))
                     
                      #draw the moving note
                     screen.blit(note.image, note.pos)
@@ -232,7 +232,7 @@ class WordChimes():
                     pygame.display.update()
      
                     #delay for a period of time
-                    clock.tick(accentDelay)
+                    self.clock.tick(FPS)
                 
                 #add to final notes so they can be redrawn
                 finals.append(note)

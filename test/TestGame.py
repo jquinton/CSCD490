@@ -1,12 +1,17 @@
 #!/usr/bin/python
 import pygame
 import gtk
+import os
 
 class TestGame:
+    def load_image(self, name):
+        path = os.path.join('Images/', name)
+        return pygame.image.load(path).convert()
+    
     def __init__(self):
         # Set up a clock for managing the frame rate.
         self.clock = pygame.time.Clock()
-
+        self.background = self.load_image('background.bmp')
         self.x = -100
         self.y = 100
 
@@ -14,23 +19,13 @@ class TestGame:
         self.vy = 0
 
         self.paused = False
-        
-    def set_paused(self, paused):
-        self.paused = paused
 
-    # Called to save the state of the game to the Journal.
-    def write_file(self, file_path):
-        pass
-
-    # Called to load the state of the game from the Journal.
-    def read_file(self, file_path):
-        pass
-        
     # The main game loop.
     def run(self):
         self.running = True    
             
         screen = pygame.display.get_surface()
+        screen.blit(self.background,  (0, 0))
 
         while self.running:
             # Pump GTK messages.
@@ -58,7 +53,7 @@ class TestGame:
                 self.vy += 5;
             
             # Clear Display
-            screen.fill((255,255,255)) #255 for white
+            screen.blit(self.background,  (0, 0))
 
             # Draw the ball
             pygame.draw.circle(screen, (255,0,0), (self.x, self.y), 100)
@@ -67,7 +62,7 @@ class TestGame:
             pygame.display.flip()  
             
             # Try to stay at 30 FPS
-            self.clock.tick(30)
+            self.clock.tick(60)
 
 # This function is called when the game is run directly from the command line:
 # ./TestGame.py 

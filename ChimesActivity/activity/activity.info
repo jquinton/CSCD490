@@ -1,6 +1,6 @@
 [Activity]
 name = Word Chimes
-service_name = org.sugarlabs.WordChimesTest
+service_name = EWU
 class = MyActivity.TestActivity
 icon = activity-generic
-activity_version = 2
+activity_version = 1

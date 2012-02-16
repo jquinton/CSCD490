@@ -1,6 +1,6 @@
 [Activity]
 name = SugargameTest
-service_name = org.sugarlabs.SugargameTest
+service_name = org.sugarlabs.S
 class = TestActivity.TestActivity
 icon = activity-generic
 activity_version = 1
