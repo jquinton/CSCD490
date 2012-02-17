@@ -1,6 +1,6 @@
 [Activity]
 name = Word Chimes
 service_name = EWU
-class = MyAvtivity.TestActivity
-icon = activity-generic
+class = MyActivity.TestActivity
+icon = icon
 activity_version = 1
