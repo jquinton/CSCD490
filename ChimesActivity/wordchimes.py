@@ -7,9 +7,10 @@ import os
 
 SCREENWIDTH = 1200
 SCREENHEIGHT = 700
-FPS = 60
-ANIM_FRAME_TIME = 60
-ANIM_SPEED_INCREASE = .2
+FPS = 20
+ANIM_FRAME_TIME = 30
+ANIM_SPEED_INCREASE = .5
+ANIM_SPEED_START = 1.6
 
 #the note object that will assend the screen
 class ImageObject():
@@ -201,7 +202,7 @@ class WordChimes:
                 elif ord(letters[x]) == 32:
                           noteImage = load_letter("transparent.png")
           
-                note = ImageObject(noteImage, x*40+10, screen.get_height() - 40,  3,  letters[x])
+                note = ImageObject(noteImage, x*40+10, screen.get_height() - 50,  3,  letters[x])
                 notes.append(note)
             
             note_number = 0
@@ -210,9 +211,12 @@ class WordChimes:
             
             #this is the loop that move the notes up the screen
             for note in notes:
-                note.speed = 1 + (ord(note.letter)-97) * ANIM_SPEED_INCREASE
+                note.speed = ANIM_SPEED_START + (ord(note.letter)-97) * ANIM_SPEED_INCREASE
                 #this loops tell the note gets to its destination
                 for k in range(ANIM_FRAME_TIME):
+                    while gtk.events_pending():
+                        gtk.main_iteration()                    
+                    
                     #check to see if user wants to exit
                     for event in pygame.event.get(): 
                         if event.type == pygame.QUIT:
@@ -269,7 +273,7 @@ def redrawTiles(screen,  background,  bottomTiles):
 def addTile(screen,  bottomTiles,  image,  letters):
     #load the image
     letterTileImage = load_letter(image)
-    letterTile = ImageObject(letterTileImage,  (len(bottomTiles)*40+10), screen.get_height() - 40,   1,  letters[len(letters)-1])
+    letterTile = ImageObject(letterTileImage,  (len(bottomTiles)*40+10), screen.get_height() - 50,   1,  letters[len(letters)-1])
     #draw the image
     screen.blit(letterTile.image, letterTile.pos)
     #add to array
