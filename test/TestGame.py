@@ -3,16 +3,15 @@ import pygame
 import gtk
 import os
 
-
 class TestGame:
     def load_image(self, name):
-        path = os.path.join(os.path.dirname(__file__),'Images', name)
-        return pygame.image.load(path)
+        path = os.path.join('Images/', name)
+        return pygame.image.load(path).convert()
     
     def __init__(self):
         # Set up a clock for managing the frame rate.
         self.clock = pygame.time.Clock()
-        self.background = self.load_image('mountainBG.png')
+        self.background = self.load_image('background.bmp')
         self.x = -100
         self.y = 100
 
@@ -37,8 +36,6 @@ class TestGame:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return
-                #elif event.type == pygame.KEYDOWN:
-                    #self.paused = not self.paused
                 elif event.type == pygame.VIDEORESIZE:
                     pygame.display.set_mode(event.size, pygame.RESIZABLE)
             

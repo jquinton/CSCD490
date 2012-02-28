@@ -3,14 +3,12 @@
 import pygame
 from pygame.locals import *
 import gtk
-import os
 
 SCREENWIDTH = 1200
 SCREENHEIGHT = 700
-FPS = 20
-ANIM_FRAME_TIME = 30
-ANIM_SPEED_INCREASE = .5
-ANIM_SPEED_START = 1.6
+FPS = 60
+ANIM_FRAME_TIME = 60
+ANIM_SPEED_INCREASE = .4
 
 #the note object that will assend the screen
 class ImageObject():
@@ -63,7 +61,7 @@ class WordChimes:
         screen.blit(self.background, (0, 0))
         #update the display
         pygame.display.update()
-        print screen.get_height()
+
         
         #start the game loop
         done = False
@@ -87,8 +85,9 @@ class WordChimes:
                     #check to see if user wants to exit
                     if event.type == pygame.QUIT: 
                         done = True
-                    if event.type == KEYDOWN:
                         
+                    if event.type == KEYDOWN:
+                        print event
                         if len(letters) == 0:
                             #clear the whole screen
                             screen.blit(self.background, (0, 0))
@@ -189,8 +188,7 @@ class WordChimes:
                         #see if done entering text
                         if (event.key == K_RETURN):
                             waiting = False
-            if done == True:
-                break
+            
             
             
            
@@ -202,7 +200,7 @@ class WordChimes:
                 elif ord(letters[x]) == 32:
                           noteImage = load_letter("transparent.png")
           
-                note = ImageObject(noteImage, x*40+10, screen.get_height() - 50,  3,  letters[x])
+                note = ImageObject(noteImage, x*40+10, SCREENHEIGHT - 20,  3,  letters[x])
                 notes.append(note)
             
             note_number = 0
@@ -211,17 +209,13 @@ class WordChimes:
             
             #this is the loop that move the notes up the screen
             for note in notes:
-                note.speed = ANIM_SPEED_START + (ord(note.letter)-97) * ANIM_SPEED_INCREASE
+                note.speed = 1 + (ord(note.letter)-97) * ANIM_SPEED_INCREASE
                 #this loops tell the note gets to its destination
                 for k in range(ANIM_FRAME_TIME):
-                    while gtk.events_pending():
-                        gtk.main_iteration()                    
-                    
                     #check to see if user wants to exit
                     for event in pygame.event.get(): 
-                        if event.type == pygame.QUIT:
-                            done = True
-                            break
+                        if event.type == pygame.QUIT: 
+                            done = True 
                     #move the note up
                     note.move()
                     #clear the whole screen
@@ -249,16 +243,16 @@ class WordChimes:
                     play_sound(sound_list[ord(note.letter) - 97])
                 note_number += 1
 
+        pygame.quit ()
 
 def load_image(name):
-    path = os.path.join(os.path.dirname(__file__), 'Images', name)
-    image = pygame.image.load(path)
-    return image
+    path = 'Images/' + name
+    return pygame.image.load(path).convert_alpha()
 
 #function to load a letter
 def load_letter(name):
-    path = os.path.join(os.path.dirname(__file__), 'Images', 'Letters', name)
-    return pygame.image.load(path) 
+    path = os.path.join('Images/Letters/', name)
+    return pygame.image.load(path).convert_alpha()  
         
 def redrawTiles(screen,  background,  bottomTiles):
     #clear the whole screen
@@ -266,14 +260,14 @@ def redrawTiles(screen,  background,  bottomTiles):
     #redraw the bottom letters that have reached there destination
     for letterTile in bottomTiles:
         screen.blit(letterTile.image, letterTile.pos)
-        #update the display
-        pygame.display.update()
+    #update the display
+    pygame.display.update()
         
         
 def addTile(screen,  bottomTiles,  image,  letters):
     #load the image
     letterTileImage = load_letter(image)
-    letterTile = ImageObject(letterTileImage,  (len(bottomTiles)*40+10), screen.get_height() - 50,   1,  letters[len(letters)-1])
+    letterTile = ImageObject(letterTileImage,  (len(bottomTiles)*40+10), SCREENHEIGHT - 40,   1,  letters[len(letters)-1])
     #draw the image
     screen.blit(letterTile.image, letterTile.pos)
     #add to array

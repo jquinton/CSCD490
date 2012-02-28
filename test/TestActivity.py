@@ -9,7 +9,7 @@ import sugar.graphics.toolbutton
 
 sys.path.append('..') # Import sugargame package from top directory.
 import sugargame.canvas
-import sugargame
+
 import TestGame
 
 class TestActivity(sugar.activity.activity.Activity):
@@ -22,7 +22,7 @@ class TestActivity(sugar.activity.activity.Activity):
         self.game = TestGame.TestGame()
 
         # Build the activity toolbar.
-        self.build_toolbar()
+        #self.build_toolbar()
 
         # Build the Pygame canvas.
         self._pygamecanvas = sugargame.canvas.PygameCanvas(self)

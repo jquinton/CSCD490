@@ -25,7 +25,7 @@ class TestActivity(sugar.activity.activity.Activity):
         self._canvas = sugargame.canvas.PygameCanvas(self)
         # Note that set_canvas implicitly calls read_file when resuming from the Journal.
         self.set_canvas(self._canvas)
-        self._canvas.grab_focus()
+           
         # Start the game running.
         self._canvas.run_pygame(self.game.run)
            
