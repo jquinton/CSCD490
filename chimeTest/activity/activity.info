@@ -1,7 +1,0 @@
-[Activity]
-name = WordChimes
-service_name = org.laptop.WordChimes
-class = WordChimes.WordChimes
-icon = WordChimes
-activity_version = 1
-show_launcher = yes
