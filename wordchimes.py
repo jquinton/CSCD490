@@ -102,82 +102,148 @@ class WordChimes:
                         
                             if event.key == K_a:
                                 letters +='a'
-                                addTile(screen,  bottomTiles,  '0A.png',  letters)
+                                addTile(screen,  bottomTiles,  '01.png',  letters)
                             elif event.key == K_b:
                                 letters +='b'
-                                addTile(screen,  bottomTiles,  '0B.png',  letters)
+                                addTile(screen,  bottomTiles,  '02.png',  letters)
                             elif event.key == K_c:
                                 letters +='c'
-                                addTile(screen,  bottomTiles,  '0C.png',  letters)
+                                addTile(screen,  bottomTiles,  '03.png',  letters)
                             elif event.key == K_d:
                                 letters +='d'
-                                addTile(screen,  bottomTiles,  '0D.png',  letters)
+                                addTile(screen,  bottomTiles,  '04.png',  letters)
                             elif event.key == K_e:
                                 letters +='e'
-                                addTile(screen,  bottomTiles,  '0E.png',  letters)
+                                addTile(screen,  bottomTiles,  '05.png',  letters)
                             elif event.key == K_f:
                                 letters +='f'
-                                addTile(screen,  bottomTiles,  '0F.png',  letters)
+                                addTile(screen,  bottomTiles,  '06.png',  letters)
                             elif event.key == K_g:
                                 letters +='g'
-                                addTile(screen,  bottomTiles,  '0G.png',  letters)
+                                addTile(screen,  bottomTiles,  '07.png',  letters)
                             elif event.key == K_h:
                                 letters +='h'
-                                addTile(screen,  bottomTiles,  '0H.png',  letters)
+                                addTile(screen,  bottomTiles,  '08.png',  letters)
                             elif event.key == K_i:
                                 letters +='i'
-                                addTile(screen,  bottomTiles,  '0I.png',  letters)
+                                addTile(screen,  bottomTiles,  '09.png',  letters)
                             elif event.key == K_j:
                                 letters +='j'
-                                addTile(screen,  bottomTiles,  '0J.png',  letters)
+                                addTile(screen,  bottomTiles,  '10.png',  letters)
                             elif event.key == K_k:
                                 letters +='k'
-                                addTile(screen,  bottomTiles,  '0K.png',  letters)
+                                addTile(screen,  bottomTiles,  '11.png',  letters)
                             elif event.key == K_l:
                                 letters +='l'
-                                addTile(screen,  bottomTiles,  '0L.png',  letters)
+                                addTile(screen,  bottomTiles,  '12.png',  letters)
                             elif event.key == K_m:
                                 letters +='m'
-                                addTile(screen,  bottomTiles,  '0M.png',  letters)
+                                addTile(screen,  bottomTiles,  '13.png',  letters)
                             elif event.key == K_n:
                                 letters +='n'
-                                addTile(screen,  bottomTiles,  '0N.png',  letters)
+                                addTile(screen,  bottomTiles,  '14.png',  letters)
                             elif event.key == K_o:
                                 letters +='o'
-                                addTile(screen,  bottomTiles,  '0O.png',  letters)
+                                addTile(screen,  bottomTiles,  '15.png',  letters)
                             elif event.key == K_p:
                                 letters +='p'
-                                addTile(screen,  bottomTiles,  '0P.png',  letters)
+                                addTile(screen,  bottomTiles,  '16.png',  letters)
                             elif event.key == K_q:
                                 letters +='q'
-                                addTile(screen,  bottomTiles,  '0Q.png',  letters)
+                                addTile(screen,  bottomTiles,  '17.png',  letters)
                             elif event.key == K_r:
                                 letters +='r'
-                                addTile(screen,  bottomTiles,  '0R.png',  letters)
+                                addTile(screen,  bottomTiles,  '18.png',  letters)
                             elif event.key == K_s:
                                 letters +='s'
-                                addTile(screen,  bottomTiles,  '0S.png',  letters)
+                                addTile(screen,  bottomTiles,  '19.png',  letters)
                             elif event.key == K_t:
                                 letters +='t'
-                                addTile(screen,  bottomTiles,  '0T.png',  letters)
+                                addTile(screen,  bottomTiles,  '20.png',  letters)
                             elif event.key == K_u:
                                 letters +='u'
-                                addTile(screen,  bottomTiles,  '0U.png',  letters)
+                                addTile(screen,  bottomTiles,  '21.png',  letters)
                             elif event.key == K_v:
                                 letters +='v'
-                                addTile(screen,  bottomTiles,  '0V.png',  letters)
+                                addTile(screen,  bottomTiles,  '22.png',  letters)
                             elif event.key == K_w:
                                 letters +='w'
-                                addTile(screen,  bottomTiles,  '0W.png',  letters)
+                                addTile(screen,  bottomTiles,  '23.png',  letters)
                             elif event.key == K_x:
                                 letters +='x'
-                                addTile(screen,  bottomTiles,  '0X.png',  letters)
+                                addTile(screen,  bottomTiles,  '24.png',  letters)
                             elif event.key == K_y:
                                 letters +='y'
-                                addTile(screen,  bottomTiles,  '0Y.png',  letters)
+                                addTile(screen,  bottomTiles,  '25.png',  letters)
                             elif event.key == K_z:
                                 letters +='z'
-                                addTile(screen,  bottomTiles,  '0Z.png',  letters)
+                                addTile(screen,  bottomTiles,  '26.png',  letters)
+                            elif event.key == K_1:
+                                letters +='1'
+                                addTile(screen,  bottomTiles,  '1.png',  letters)
+                            elif event.key == K_2:
+                                letters +='2'
+                                addTile(screen,  bottomTiles,  '2.png',  letters)
+                            elif event.key == K_3:
+                                letters +='3'
+                                addTile(screen,  bottomTiles,  '3.png',  letters)   
+                            elif event.key == K_4:
+                                letters +='4'
+                                addTile(screen,  bottomTiles,  '4.png',  letters)
+                            elif event.key == K_5:
+                                letters +='5'
+                                addTile(screen,  bottomTiles,  '5.png',  letters)     
+                            elif event.key == K_6:
+                                letters +='6'
+                                addTile(screen,  bottomTiles,  '6.png',  letters)
+                            elif event.key == K_7:
+                                letters +='7'
+                                addTile(screen,  bottomTiles,  '7.png',  letters)     
+                            elif event.key == K_8:
+                                letters +='8'
+                                addTile(screen,  bottomTiles,  '8.png',  letters)
+                            elif event.key == K_9:
+                                letters +='9'
+                                addTile(screen,  bottomTiles,  '9.png',  letters) 
+                            elif event.key == K_0:
+                                letters +='0'
+                                addTile(screen,  bottomTiles,  '0.png',  letters)
+
+#                            elif event.key == K_`:
+#                                letters +='`'
+#                                addTile(screen,  bottomTiles,  '`.png',  letters)
+#                            elif event.key == K_=:
+#                                letters +='='
+#                                addTile(screen,  bottomTiles,  '=.png',  letters) 
+#                            elif event.key == K_-:
+#                                letters +='-'
+#                                addTile(screen,  bottomTiles,  '-.png',  letters)
+#                            elif event.key == K_,:
+#                                letters +=','
+#                                addTile(screen,  bottomTiles,  ',.png',  letters) 
+#                            elif event.key == K_;:
+#                                letters +=';'
+#                                addTile(screen,  bottomTiles,  ';.png',  letters)
+#                            elif event.key == K_[:
+#                                letters +='['
+#                                addTile(screen,  bottomTiles,  '[.png',  letters) 
+#                            elif event.key == K_]:
+#                                letters +=']'
+#                                addTile(screen,  bottomTiles,  '].png',  letters)
+#                            elif event.key == K_.:
+#                                letters +='.'
+#                                addTile(screen,  bottomTiles,  'period.png',  letters) 
+#                            elif event.key == K_/:
+#                                letters +='/'
+#                                addTile(screen,  bottomTiles,  'slash.png',  letters)
+#                            elif event.key == K_\:
+#                                letters +='\\'
+#                                addTile(screen,  bottomTiles,  '\.png',  letters) 
+#                            elif event.key == K_'\'':
+#                                letters +='\''
+#                                addTile(screen,  bottomTiles,  '\'.png',  letters)
+
+                                
                             elif event.key == K_SPACE:
                                 letters +=' '
                                 addTile(screen,  bottomTiles,  'transparent.png',  letters)
@@ -200,8 +266,12 @@ class WordChimes:
             #create notes and set their position and speed to raise at
             notes = []
             for x in range(len(letters)):
-                if ord(letters[x]) >= 97 and ord(letters[x]) <= 122:
-                    noteImage = load_letter("0" + letters[x].upper() + ".png")
+                if ord(letters[x]) >= 97 and ord(letters[x]) <= 106:
+                    noteImage = load_letter("0" + str(ord(letters[x])-96) + ".png")
+                elif ord(letters[x]) >= 107 and ord(letters[x]) <= 122:
+                    noteImage = load_letter("" + str(ord(letters[x])-96) + ".png")
+                elif ord(letters[x]) >= 48 and ord(letters[x]) <= 57:
+                    noteImage = load_letter("" + str(ord(letters[x])-48) + ".png")
                 elif ord(letters[x]) == 32:
                           noteImage = load_letter("transparent.png")
           
@@ -248,8 +318,9 @@ class WordChimes:
                 finals.append(note)
                 #play the sound if not a space
                 print ord(note.letter)
-                if ord(note.letter) != 32:
+                if ord(note.letter) >= 97 and ord(note.letter) <= 122:
                     play_sound(sound_list[ord(note.letter) - 97])
+                
                 note_number += 1
 
 
@@ -260,7 +331,8 @@ def load_image(name):
 
 #function to load a letter
 def load_letter(name):
-    path = os.path.join(os.path.dirname(__file__), 'Images', 'Letters', name)
+    
+    path = os.path.join(os.path.dirname(__file__), 'LettersColor', 'LettersOrange', name)
     return pygame.image.load(path) 
         
 def redrawTiles(screen,  background,  bottomTiles):
