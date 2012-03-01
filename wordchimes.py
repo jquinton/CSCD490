@@ -11,6 +11,7 @@ FPS = 20
 ANIM_FRAME_TIME = 30
 ANIM_SPEED_INCREASE = .5
 ANIM_SPEED_START = 1.6
+colorMod = 0
 
 #the note object that will assend the screen
 class ImageObject():
@@ -28,16 +29,18 @@ class ImageObject():
             self.subpixel = self.subpixel % 10
 
 class WordChimes:
+    
     def __init__(self):
         self.clock = pygame.time.Clock()
         self.background = load_image('mountainBG.png')
-    
+        
     def run(self):
-      
+         global colorMod 
+         
         # fill sound array with sound files
-        sound_list = []
-        i = 0
-        while i < 26 :
+         sound_list = []
+         i = 0
+         while i < 26 :
             temp_sound_file = os.getcwd()
             temp_sound_file += "/soundfiles/"
             temp_sound_file += chr(i + 65)
@@ -51,27 +54,27 @@ class WordChimes:
         
         # Initialize mixer
         # the mixer is used by pygame to load and play the sound files
-        freq = 44100 
-        bitsize = -16
-        channels = 2 
-        buffer = 2048
-        pygame.mixer.init(freq, bitsize, channels, buffer)
-        pygame.mixer.music.set_volume(0.7)
+         freq = 44100 
+         bitsize = -16
+         channels = 2 
+         buffer = 2048
+         pygame.mixer.init(freq, bitsize, channels, buffer)
+         pygame.mixer.music.set_volume(0.7)
         
         #used so animation displays at a reasonable speed
 
         #draw the background = load_im
         
         #setup screen
-        screen = pygame.display.get_surface()
-        screen.blit(self.background, (0, 0))
+         screen = pygame.display.get_surface()
+         screen.blit(self.background, (0, 0))
         #update the display
-        pygame.display.update()
-        print screen.get_height()
+         pygame.display.update()
+         print screen.get_height()
         
         #start the game loop
-        done = False
-        while done == False:
+         done = False
+         while done == False:
             #check to see if user wants to exit
             for event in pygame.event.get(): 
                 if event.type == pygame.QUIT: 
@@ -82,17 +85,21 @@ class WordChimes:
             letters = ""
             bottomTiles = []
             waiting = True
+            colorMod =0
             while waiting == True and done == False:
                 #check for input
+                
                 while gtk.events_pending():
                     gtk.main_iteration()
-
+                
+                
                 for event in pygame.event.get():
                     #check to see if user wants to exit
                     if event.type == pygame.QUIT: 
                         done = True
                         break
                     if event.type == KEYDOWN:
+                        
                         
                         if len(letters) == 0:
                             #clear the whole screen
@@ -178,36 +185,36 @@ class WordChimes:
                             elif event.key == K_z:
                                 letters +='z'
                                 addTile(screen,  bottomTiles,  '26.png',  letters)
-                            elif event.key == K_1:
-                                letters +='1'
-                                addTile(screen,  bottomTiles,  '1.png',  letters)
-                            elif event.key == K_2:
-                                letters +='2'
-                                addTile(screen,  bottomTiles,  '2.png',  letters)
-                            elif event.key == K_3:
-                                letters +='3'
-                                addTile(screen,  bottomTiles,  '3.png',  letters)   
-                            elif event.key == K_4:
-                                letters +='4'
-                                addTile(screen,  bottomTiles,  '4.png',  letters)
-                            elif event.key == K_5:
-                                letters +='5'
-                                addTile(screen,  bottomTiles,  '5.png',  letters)     
-                            elif event.key == K_6:
-                                letters +='6'
-                                addTile(screen,  bottomTiles,  '6.png',  letters)
-                            elif event.key == K_7:
-                                letters +='7'
-                                addTile(screen,  bottomTiles,  '7.png',  letters)     
-                            elif event.key == K_8:
-                                letters +='8'
-                                addTile(screen,  bottomTiles,  '8.png',  letters)
-                            elif event.key == K_9:
-                                letters +='9'
-                                addTile(screen,  bottomTiles,  '9.png',  letters) 
-                            elif event.key == K_0:
-                                letters +='0'
-                                addTile(screen,  bottomTiles,  '0.png',  letters)
+#                            elif event.key == K_1:
+#                                letters +='1'
+#                                addTile(screen,  bottomTiles,  '1.png',  letters)
+#                            elif event.key == K_2:
+#                                letters +='2'
+#                                addTile(screen,  bottomTiles,  '2.png',  letters)
+#                            elif event.key == K_3:
+#                                letters +='3'
+#                                addTile(screen,  bottomTiles,  '3.png',  letters)   
+#                            elif event.key == K_4:
+#                                letters +='4'
+#                                addTile(screen,  bottomTiles,  '4.png',  letters)
+#                            elif event.key == K_5:
+#                                letters +='5'
+#                                addTile(screen,  bottomTiles,  '5.png',  letters)     
+#                            elif event.key == K_6:
+#                                letters +='6'
+#                                addTile(screen,  bottomTiles,  '6.png',  letters)
+#                            elif event.key == K_7:
+#                                letters +='7'
+#                                addTile(screen,  bottomTiles,  '7.png',  letters)     
+#                            elif event.key == K_8:
+#                                letters +='8'
+#                                addTile(screen,  bottomTiles,  '8.png',  letters)
+#                            elif event.key == K_9:
+#                                letters +='9'
+#                                addTile(screen,  bottomTiles,  '9.png',  letters) 
+#                            elif event.key == K_0:
+#                                letters +='0'
+#                                addTile(screen,  bottomTiles,  '0.png',  letters)
 
 #                            elif event.key == K_`:
 #                                letters +='`'
@@ -250,34 +257,35 @@ class WordChimes:
                             elif event.key == K_EXCLAIM:
                                 letters +='!'
                                 addTile(screen,  bottomTiles,  'tile.bmp',  letters)
-                                
+                        
                         if event.key == K_BACKSPACE:
+                            
                             if len(letters) > 0:
+                                colorMod = colorMod -1
                                 letters = letters[:-1]
                                 bottomTiles.pop()
                                 redrawTiles(screen,  self.background,  bottomTiles)
                         
                         #see if done entering text
                         if (event.key == K_RETURN):
+                            colorMod = 0
                             waiting = False
+                        colorMod = colorMod + 1
             
             
-           
             #create notes and set their position and speed to raise at
             notes = []
+            colorMod = 0
             for x in range(len(letters)):
-                if ord(letters[x]) >= 97 and ord(letters[x]) <= 106:
-                    noteImage = load_letter("0" + str(ord(letters[x])-96) + ".png")
-                elif ord(letters[x]) >= 107 and ord(letters[x]) <= 122:
-                    noteImage = load_letter("" + str(ord(letters[x])-96) + ".png")
-                elif ord(letters[x]) >= 48 and ord(letters[x]) <= 57:
-                    noteImage = load_letter("" + str(ord(letters[x])-48) + ".png")
+                
+                if ord(letters[x]) >= 97 and ord(letters[x]) <= 122:
+                    noteImage = load_letter("Note.png")
                 elif ord(letters[x]) == 32:
                           noteImage = load_letter("transparent.png")
-          
+                
                 note = ImageObject(noteImage, x*40+10, screen.get_height() - 50,  3,  letters[x])
                 notes.append(note)
-            
+                colorMod = colorMod + 1
             note_number = 0
             #used to store the notes when the reach there final destination
             finals = []
@@ -328,11 +336,37 @@ def load_image(name):
     path = os.path.join(os.path.dirname(__file__), 'Images', name)
     image = pygame.image.load(path)
     return image
-
+    
+    
+    
+def get_path():
+    colorFile = ""
+    colorModTemp = colorMod  % 8
+    
+    if colorModTemp == 0:
+        colorFile = "LettersBlue"
+    elif colorModTemp == 1:
+        colorFile = "LettersGreen"
+    elif colorModTemp == 2:
+        colorFile = "LettersOrange"
+    elif colorModTemp == 3:
+        colorFile = "LettersGrey"
+    elif colorModTemp == 4:
+        colorFile = "LettersPurple"
+    elif colorModTemp == 5:
+        colorFile = "LettersRed"
+    elif colorModTemp == 6:
+        colorFile = "LettersTeal"
+    elif colorModTemp == 7:
+        colorFile = "LettersYellow"
+    return colorFile
+    
+    
 #function to load a letter
 def load_letter(name):
-    
-    path = os.path.join(os.path.dirname(__file__), 'LettersColor', 'LettersOrange', name)
+    colorFile = get_path()
+    colorMod = 1
+    path = os.path.join(os.path.dirname(__file__), 'LettersColor', colorFile, name)
     return pygame.image.load(path) 
         
 def redrawTiles(screen,  background,  bottomTiles):
