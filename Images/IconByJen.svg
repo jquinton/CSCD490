@@ -1,9 +1,7 @@
-<?xml version="1.0" ?>
-<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'
-  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
-        <!ENTITY stroke_color "#000000">
-        <!ENTITY fill_color "#FFFFFF">
-]><svg
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -61,7 +59,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <rect
-       style="fill:&fill_color;;stroke:&stroke_color;;stroke-opacity:1"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.53973639;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3823"
        width="5.7298059"
        height="34.811272"
@@ -73,28 +71,28 @@
        id="path4126"
        inkscape:connector-curvature="0" />
     <rect
-       style="fill:&fill_color;;stroke:&stroke_color;;stroke-opacity:1"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.48437446;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3823-4"
        width="5.7298059"
        height="28.03619"
        x="21.420811"
        y="11.737222" />
     <rect
-       style="fill:&fill_color;;stroke:&stroke_color;;stroke-opacity:1"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.46088767;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3823-9"
        width="5.7298059"
        height="25.383219"
        x="30.277954"
        y="11.737221" />
     <rect
-       style="fill:&fill_color;;stroke:&stroke_color;;stroke-opacity:1"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.42665857;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3823-46"
        width="5.7298059"
        height="21.752916"
        x="39.135094"
        y="11.737222" />
     <rect
-       style="fill:&fill_color;;stroke:&stroke_color;;stroke-opacity:1"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.51142097;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3823-0"
        width="5.7298059"
        height="31.254578"
