@@ -44,11 +44,7 @@ class WordChimes:
             temp_sound_file = os.getcwd()
             temp_sound_file += "/soundfiles/"
             temp_sound_file += chr(i + 65)
-           
-            if(i+65 != 74 and i+65 != 75 and i+65 != 76):
-                temp_sound_file += ".mid"
-            else:
-                temp_sound_file += ".wav"
+            temp_sound_file += ".wav"
             sound_list.append(temp_sound_file)
             i += 1
         
@@ -104,7 +100,9 @@ class WordChimes:
                         if len(letters) == 0:
                             #clear the whole screen
                             screen.blit(self.background, (0, 0))
-                    
+                            #update the display
+                            pygame.display.update()
+    
                         if len(letters) < 29:
                         
                             if event.key == K_a:
@@ -375,8 +373,8 @@ def redrawTiles(screen,  background,  bottomTiles):
     #redraw the bottom letters that have reached there destination
     for letterTile in bottomTiles:
         screen.blit(letterTile.image, letterTile.pos)
-        #update the display
-        pygame.display.update()
+    #update the display
+    pygame.display.update()
         
         
 def addTile(screen,  bottomTiles,  image,  letters):
