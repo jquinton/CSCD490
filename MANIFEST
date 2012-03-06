@@ -540,3 +540,6 @@ soundfiles/Y.wav
 soundfiles/N.wav
 soundfiles/U.wav
 soundfiles/E.wav
+sugargame/__init__.py
+sugargame/event.py
+sugargame/canvas.py
