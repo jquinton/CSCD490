@@ -543,3 +543,4 @@ soundfiles/E.wav
 sugargame/__init__.py
 sugargame/event.py
 sugargame/canvas.py
+Images/cursor.png

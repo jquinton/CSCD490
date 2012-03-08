@@ -22,6 +22,7 @@ class ImageObject():
         self.subpixel = 0
         self.pos = image.get_rect().move(Xcord, Ycord)
         self.frame = 0;
+        
     def move(self):
         self.pos = self.pos.move(0, -self.speed)
         self.subpixel += (self.speed * 10) % 10
@@ -81,17 +82,16 @@ class WordChimes:
         self.notes = None
         self.notesDone = []
         
-        
             
     def initMixer(self):
         # Initialize mixer
         # the mixer is used by pygame to load and play the sound files
-         freq = 44100 
+         freq = 22050 
          bitsize = -16
          channels = 2 
-         buffer = 2048
+         buffer = 4096
          pygame.mixer.init(freq, bitsize, channels, buffer)
-         pygame.mixer.music.set_volume(0.7)
+         pygame.mixer.music.set_volume(0.6)
     
     def initSounds(self):
         # fill sound array with sound files
@@ -108,7 +108,7 @@ class WordChimes:
         self.screen = pygame.display.get_surface()
         self.initTyping()
         #update the display
-        pygame.display.update()
+        pygame.display.flip()
         #print screen.get_height()
         
         #start the game loop
@@ -162,9 +162,9 @@ class WordChimes:
                 elif event.type == KEYDOWN:
                     self.doKeyDown(event)
             #End of event processing loop
-            
+        print "quiting"    
         #End of main loop
-        return
+        pygame.quit()
         while not self.quit:
             #check to see if user wants to exit
             for event in [ pygame.event.wait() ] + pygame.event.get(): 
