@@ -1,0 +1,6 @@
+[Activity]
+name = Word Chimes
+service_name = EWU
+class = MyActivity.TestActivity
+icon = WCIcon
+activity_version = 1
