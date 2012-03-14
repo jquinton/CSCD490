@@ -7,9 +7,9 @@ import os
 
 MIXER_FREQ = 22050
 MIXER_BITSIZE = -16
-MIXER_CHANNELS = 1 
+MIXER_CHANNELS = 2
 MIXER_BUFFER = 4096
-MIXER_VOLUME = 0.4
+MIXER_VOLUME = 0.6
 
 SCREENWIDTH = 1200
 SCREENHEIGHT = 700
@@ -19,10 +19,8 @@ ANIM_SPEED_INCREASE = .8
 ANIM_SPEED_START = 1.6
 colorMod = 0
 
-null = None
-
 #the note object that will assend the screen
-class ImageObject():
+class Note():
     def __init__(self, image, Xcord,  Ycord, speed, keyData):
         self.speed = speed
         self.image = image
@@ -44,58 +42,59 @@ class ImageObject():
         
     def play(this):
         this.keyData.playSound()
+        
 class KeyData:
     def __init__(this,  ascii,  imageFile,  soundFile):
         this.ascii = ascii
         this.imageFile = imageFile
         this.soundFile = soundFile
-        this.sound = null
+        this.sound = None
     def loadSound(this):
         try:
-            file = os.path.join(os.getcwd(), 'soundfiles', this.soundFile)
-            print file
+            file = os.getcwd() + '/sound/' + this.soundFile
             this.sound = pygame.mixer.Sound(file)
+            this.sound.play()
         except:
             pass
     def playSound(this):
-        if (this.sound != null):
+        if (this.sound != None):
             this.sound.play()
             
         
         
 class WordChimes:
-    letterMap = {"a":KeyData('a','01.png', 'a.wav'), \
-              "b":KeyData('b','02.png', 'b.wav'), \
-              "c":KeyData('c','03.png', 'c.wav'), \
-              "d":KeyData('d','04.png', 'd.wav'), \
-              "e":KeyData('e','05.png', 'e.wav'), \
-              "f":KeyData('f','06.png', 'f.wav'), \
-              "g":KeyData('g','07.png', 'g.wav'), \
-              "h":KeyData('h','08.png', 'h.wav'), \
-              "i":KeyData('i','09.png', 'i.wav'), \
-              "j":KeyData('j','10.png', 'j.wav'), \
-              "k":KeyData('k','11.png', 'k.wav'), \
-              "l":KeyData('l','12.png', 'l.wav'), \
-              "m":KeyData('m','13.png', 'm.wav'), \
-              "n":KeyData('n','14.png', 'n.wav'), \
-              "o":KeyData('o','15.png', 'o.wav'), \
-              "p":KeyData('p','16.png', 'p.wav'), \
-              "q":KeyData('q','17.png', 'q.wav'), \
-              "r":KeyData('r','18.png', 'r.wav'), \
-              "s":KeyData('s','19.png', 's.wav'), \
-              "t":KeyData('t','20.png', 't.wav'), \
-              "u":KeyData('u','21.png', 'u.wav'), \
-              "v":KeyData('v','22.png', 'v.wav'), \
-              "w":KeyData('w','23.png', 'w.wav'), \
-              "x":KeyData('x','24.png', 'x.wav'), \
-              "y":KeyData('y','25.png', 'y.wav'), \
-              "z":KeyData('z','26.png', 'z.wav'), \
+    letterMap = {"a":KeyData('a','01.png', 'A.ogg'), \
+              "b":KeyData('b','02.png', 'B.ogg'), \
+              "c":KeyData('c','03.png', 'C.ogg'), \
+              "d":KeyData('d','04.png', 'D.ogg'), \
+              "e":KeyData('e','05.png', 'E.ogg'), \
+              "f":KeyData('f','06.png', 'F.ogg'), \
+              "g":KeyData('g','07.png', 'G.ogg'), \
+              "h":KeyData('h','08.png', 'H.ogg'), \
+              "i":KeyData('i','09.png', 'I.ogg'), \
+              "j":KeyData('j','10.png', 'J.ogg'), \
+              "k":KeyData('k','11.png', 'K.ogg'), \
+              "l":KeyData('l','12.png', 'L.ogg'), \
+              "m":KeyData('m','13.png', 'M.ogg'), \
+              "n":KeyData('n','14.png', 'N.ogg'), \
+              "o":KeyData('o','15.png', 'O.ogg'), \
+              "p":KeyData('p','16.png', 'P.ogg'), \
+              "q":KeyData('q','17.png', 'Q.ogg'), \
+              "r":KeyData('r','18.png', 'R.ogg'), \
+              "s":KeyData('s','19.png', 'S.ogg'), \
+              "t":KeyData('t','20.png', 'T.ogg'), \
+              "u":KeyData('u','21.png', 'U.ogg'), \
+              "v":KeyData('v','22.png', 'V.ogg'), \
+              "w":KeyData('w','23.png', 'W.ogg'), \
+              "x":KeyData('x','24.png', 'X.ogg'), \
+              "y":KeyData('y','25.png', 'Y.ogg'), \
+              "z":KeyData('z','26.png', 'Z.ogg'), \
               " ":KeyData(' ','transparent.png', None), \
-              "1":KeyData('1','26.png', 'z.wav')}
+              "1":KeyData('1','26.png', 'Z.ogg')}
     
     def __init__(self):
         self.clock = pygame.time.Clock()
-        self.background = self.load_image('mountainBG.png')
+        self.background = self.loadImage('mountainBG.png')
         self.letters = ""
         self.typedKeyData = []
         self.colorMod = 0
@@ -110,7 +109,10 @@ class WordChimes:
         self.afterAnimating = False
         self.notes = None
         self.notesDone = []
-        
+        self.constantRefreshFrameCount = 0
+        self.caretOn = True
+        self.caretFrame = 0
+        self.hideCursor = False
             
     def initMixer(self):
         # Initialize mixer
@@ -124,11 +126,28 @@ class WordChimes:
             
     def initTyping(self):
         self.colorMod = 0
-        #clear the whole screen
-        self.screen.blit(self.background, (0, 0))
+        #this also clears the whole screen
+        self.renewCaret()
         #update the display
         pygame.display.update()
         
+    def initAnimating(self):
+        self.animating = True
+        self.notes = []
+        self.notesDone = []
+        self.colorMod = 0
+        self.currentNote = 0
+        self.hideCursor = True
+        for x in range(len(self.letters)):
+            if ord(self.letters[x]) >= 97 and ord(self.letters[x]) <= 122:
+                noteImage = self.loadLetter("Note.png")
+            elif ord(self.letters[x]) == 32:
+                noteImage = self.loadLetter("transparent.png")
+            note = Note(noteImage, x*40+10, self.screen.get_height() - 50,  3,  self.letterMap[self.letters[x]])
+            note.speed = ANIM_SPEED_START + (ord(note.keyData.ascii)-97) * ANIM_SPEED_INCREASE
+            self.notes.append(note)
+            self.colorMod += 1
+    
     def run(self):
         #get screen
         self.screen = pygame.display.get_surface()
@@ -140,6 +159,16 @@ class WordChimes:
         #start the game loop
         while not self.quit:
             self.doPaint = False
+            self.constantRefreshFrameCount += 1
+            self.caretFrame += 1
+            if (self.caretFrame > 10):
+                self.caretOn = not self.caretOn
+                self.caretFrame = 0
+                self.updateCaret()
+            if (self.constantRefreshFrameCount > 20):
+                self.doPaint = True
+                self.constantRefreshFrameCount = 0
+            
             #Yield to GTK?
             while gtk.events_pending():
                 gtk.main_iteration()
@@ -161,10 +190,8 @@ class WordChimes:
                 #redraw the notes that have reached there destination
                 for finalNote in self.notesDone:
                     self.screen.blit(finalNote.image, finalNote.pos)
-                
-                if note.frame == ANIM_FRAME_TIME - FPS / 3:
-                    note.play()
                 if note.isDone():
+                    note.play()
                     self.notesDone.append(note)
                     self.currentNote += 1
                     if self.currentNote >= len(self.notes):
@@ -188,15 +215,11 @@ class WordChimes:
                 
     #Processes all KEYDOWN events
     def doKeyDown(self,  event):
-        #Exit if escape is ever pressed
-        if event.key == K_ESCAPE:
-            self.quit = True
-            return
         
         #Don't worry about any other keypresses while animating
         if self.animating == True:
             return
-        
+        self.hideCursor = False
         #If a button has been pressed after animating is finished, then start fresh
         if self.afterAnimating:
             self.initTyping()
@@ -217,25 +240,24 @@ class WordChimes:
                 self.bottomTiles.pop()
                 self.redrawTiles(self.screen,  self.background, self.bottomTiles)
         elif (event.key == K_RETURN):
-            self.initAnimating()
+            if (len(self.bottomTiles)):
+                self.initAnimating()
+        if (not self.animating):
+            self.renewCaret()
                 
-    
-        
-    def initAnimating(self):
-        self.animating = True
-        self.notes = []
-        self.notesDone = []
-        self.colorMod = 0
-        self.currentNote = 0
-        for x in range(len(self.letters)):
-            if ord(self.letters[x]) >= 97 and ord(self.letters[x]) <= 122:
-                noteImage = self.load_letter("Note.png")
-            elif ord(self.letters[x]) == 32:
-                noteImage = self.load_letter("transparent.png")
-            note = ImageObject(noteImage, x*40+10, self.screen.get_height() - 50,  3,  self.letterMap[self.letters[x]])
-            note.speed = ANIM_SPEED_START + (ord(note.keyData.ascii)-97) * ANIM_SPEED_INCREASE
-            self.notes.append(note)
-            self.colorMod += 1
+    def renewCaret(this):
+        this.caretOn = True
+        this.caretFrame = 0
+        this.updateCaret()
+    def updateCaret(this):
+        if (this.hideCursor):
+            return
+        if (this.caretOn):
+            this.redrawTiles(this.screen, this.background, this.bottomTiles)
+            pygame.draw.line(this.screen, (0, 0, 0), (((len(this.bottomTiles) )*40+10), this.screen.get_height() - 20), (((len(this.bottomTiles) )*40+30), this.screen.get_height() - 20), 4)
+        else:
+            this.redrawTiles(this.screen, this.background, this.bottomTiles)
+        this.doPaint = True
     
     def stopAnimating(self):
         self.animating = False
@@ -245,14 +267,20 @@ class WordChimes:
         self.notesDone = None
         self.bottomTiles = []
 
-    def load_image(this,  name):
+    def loadImage(this,  name):
         path = os.path.join(os.path.dirname(__file__), 'Images', name)
         image = pygame.image.load(path)
         return image
     
-    
-    
-    def get_path(this):
+    #
+    #getPath(this) : String
+    #Uses the current character position to figure out the proper
+    #subfolder to use for loading images of a certain color.
+    #
+    #Returns:
+    #   A String representing a single folder name.
+    #
+    def getPath(this):
         colorFile = ""
         colorModTemp = this.colorMod  % 8
         
@@ -274,29 +302,40 @@ class WordChimes:
             colorFile = "LettersYellow"
         return colorFile
         
-    
-    #function to load a letter
-    def load_letter(self,  name):
-        colorFile = self.get_path()
+    #loadLetter(self, fileName) : Surface
+    #Load a letter image file from storage into memory.
+    #
+    #Parameters:
+    #   fileName
+    #       The desired image's file name
+    #
+    #Returns:
+    #   A Pygame Surface object containing the letter image.
+    #
+    def loadLetter(self,  fileName):
+        colorFolder = self.getPath()
         #self.colorMod = 1
-        path = os.path.join(os.path.dirname(__file__), 'LettersColor', colorFile, name)
+        path = os.path.join(os.path.dirname(__file__), 'LettersColor', colorFolder, fileName)
         return pygame.image.load(path) 
-        
+    
+    #
+    #redrawTiles(self, screen, background, bottomTiles) : None
+    #
     def redrawTiles(self,  screen,  background,  bottomTiles):
         #clear the whole screen
         screen.blit(background, (0, 0))
-        #redraw the bottom letters that have reached there destination
+        #Redraw the bottom letters that have reached their destination.
         for letterTile in bottomTiles:
             screen.blit(letterTile.image, letterTile.pos)
-        #update the display
+        #Mark the display for updating.
         self.doPaint = True
         
         
     def addTile(this,  screen,  bottomTiles,  unicode):
         
         #load the image
-        letterTileImage = this.load_letter(this.letterMap[unicode].imageFile)
-        letterTile = ImageObject(letterTileImage,  (len(bottomTiles)*40+10), screen.get_height() - 50, 1, this.letterMap[unicode])
+        letterTileImage = this.loadLetter(this.letterMap[unicode].imageFile)
+        letterTile = Note(letterTileImage,  (len(bottomTiles)*40+10), screen.get_height() - 50, 1, this.letterMap[unicode])
         #draw the image
         screen.blit(letterTile.image, letterTile.pos)
         #add to array
@@ -304,7 +343,6 @@ class WordChimes:
         #update the display
         this.doPaint = True
         this.colorMod += 1
-        
 #first to run when program starts
 def main():    
     pygame.init()

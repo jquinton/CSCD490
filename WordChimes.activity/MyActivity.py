@@ -39,14 +39,15 @@ class TestActivity(sugar.activity.activity.Activity):
         self._canvas.run_pygame(self.game.run)
         
         #self.connect('visibility-notify-event', self._focus_event)
-        self.connect('motion_notify_event', self._focus_gain_event)
-        #self.connect('expose_event', self._expose_event)
+        self.connect('button_press_event', self._focus_gain_event)
+        self.connect('expose_event', self._expose_event)
+        #self.connect('_event', self._expose_event)
     def create_old_toolbar(self):        
 
         toolbar = gtk.Toolbar()
         
         toolbox = sugar.activity.activity.ActivityToolbox(self)
-        toolbox.add_toolbar(_("Word Chimes"), toolbar)
+        #toolbox.add_toolbar(_("Word Chimes"), toolbar)
         
         toolbox.show_all()
         self.set_toolbox(toolbox)
@@ -58,3 +59,6 @@ class TestActivity(sugar.activity.activity.Activity):
     
     def _focus_gain_event(self,  event, data=None):
         self._canvas.grab_focus()
+    def _expose_event(self, event,  data=None):
+        self._canvas.grab_focus()
+        self.game.doPaint = True
